@@ -1,0 +1,26 @@
+{
+  "name": "bitbucket_pipeline_build_status",
+  "version": "1.0.0",
+  "description": "Gets the latest build status of a bitbucket repo pipeline build",
+  "main": "bitbucketPipelines.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/stevedumais/bitbucket_pipeline_build_status.git"
+  },
+  "keywords": [
+    "bitbucket"
+  ],
+  "author": "@stevedumais",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/stevedumais/bitbucket_pipeline_build_status/issues"
+  },
+  "homepage": "https://github.com/stevedumais/bitbucket_pipeline_build_status#readme",
+  "dependencies": {
+    "promise.waterfall": "^3.1.4",
+    "request": "^2.75.0"
+  }
+}
