@@ -10,4 +10,6 @@ It requires that you update config.js:
      branch: "branch that you want to query"
  }
 
-node bitbucketPipelines.js username password teamname repo
+
+
+`node main.js`
