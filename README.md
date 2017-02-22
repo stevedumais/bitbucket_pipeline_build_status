@@ -1,7 +1,8 @@
 This is a simple module to get the build status of a repository that is using Bitbuckets' new pipeline feature.
 
-It requires that you update config.js:
+If you're just going to use this JS via `node main.js` the update the config.js.  
 
+ ```
  module.exports = {
      username: "you",
      password: "your password",
@@ -9,7 +10,4 @@ It requires that you update config.js:
      repo: "your repo",
      branch: "branch that you want to query"
  }
-
-
-
-`node main.js`
+ ```
