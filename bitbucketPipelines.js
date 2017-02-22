@@ -2,26 +2,33 @@
 var request = require('request')
 var promiseWaterfall = require('promise.waterfall')
 
-var args = process.argv.slice(2);
+var USER
+var PW
+var TEAM
+var REPO
+var BRANCH
+var commitEndpoint
+var statusesEndpoint
 
-const USER = args[0]
-const PW = args[1]
-const TEAM = args[2]
-const REPO = args[3]
+module.exports = function(config, callback){
 
-const commitEndpoint = 'https://api.bitbucket.org/2.0/repositories/'+TEAM+'/'+REPO+'/refs/branches/'
-const commitEndpointBranch = 'dev'
-const statusesEndpoint = 'https://api.bitbucket.org/2.0/repositories/'+TEAM+'/'+REPO+'/commit/{{ID}}/statuses'
+	USER = config.username
+	PW = config.password
+	TEAM = config.team
+	REPO = config.repo
+	BRANCH = config.branch
+	commitEndpoint = 'https://api.bitbucket.org/2.0/repositories/'+TEAM+'/'+REPO+'/refs/branches/'
+	statusesEndpoint = 'https://api.bitbucket.org/2.0/repositories/'+TEAM+'/'+REPO+'/commit/{{ID}}/statuses'
 
-
-
-promiseWaterfall([
-  getLatestCommit.bind(commitEndpoint+commitEndpointBranch),
-  getBuildStatuses.bind(statusesEndpoint)
-]).then(function(value){
-  console.log(value);
-}).catch(console.error)
-
+	promiseWaterfall([
+  		getLatestCommit.bind(commitEndpoint+BRANCH),
+  		getBuildStatuses.bind(statusesEndpoint)
+	]).then(function(value){
+  		callback(value, null)
+	}).catch(function(value){
+		callback(null, value)
+	})
+}
 
 /*
  * Get Latest Commit
@@ -46,7 +53,7 @@ function getLatestCommit(endpoint) {
 }
 function getBuildStatuses(commit) {
     return new Promise((resolve,reject)=>{
-      console.log(this.replace('{{ID}}',commit))
+      //console.log(this.replace('{{ID}}',commit))
 
       request.get(this.replace('{{ID}}',commit), {
         'auth': {
